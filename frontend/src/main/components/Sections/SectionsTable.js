@@ -1,4 +1,7 @@
 import SectionsTableBase from "main/components/SectionsTableBase";
+import { ButtonColumn } from "main/components/OurTable";
+import { hasRole } from "main/utils/currentUser";
+import { useNavigate } from "react-router-dom";
 
 import { yyyyqToQyy } from "main/utils/quarterUtilities.js";
 import {
@@ -17,9 +20,15 @@ function getFirstVal(values) {
   return values[0];
 }
 
-export default function SectionsTable({ sections }) {
+export default function SectionsTable({ sections, currentUser }) {
   // Stryker restore all
   // Stryker disable BooleanLiteral
+  const navigate = useNavigate();
+
+  const addCallback = (cell) => {
+    navigate() // TODO
+  }
+
   const columns = [
     {
       Header: "Quarter",
@@ -125,10 +134,17 @@ export default function SectionsTable({ sections }) {
       Aggregated: renderInfoLink,
     },
   ];
+  
+  const columnsIfUser = [
+    ...columns,
+    ButtonColumn("Add", "primary", addCallback, "SectionsTable"), // check if "primary" and "SectionsTable" is correct
+  ];
 
   const testid = "SectionsTable";
 
-  const columnsToDisplay = columns;
+  const columnsToDisplay = hasRole(currentUser, "ROLE_USER")
+    ? columnsIfUser
+    : columns;
 
   return (
     <SectionsTableBase
