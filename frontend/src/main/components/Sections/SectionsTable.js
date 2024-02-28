@@ -26,7 +26,7 @@ export default function SectionsTable({ sections, currentUser }) {
   const navigate = useNavigate();
 
   const addCallback = (cell) => {
-    navigate() // TODO
+    navigate(`/personalschedules/select/${cell.row.values.id}`) // TODO
   }
 
   const columns = [
