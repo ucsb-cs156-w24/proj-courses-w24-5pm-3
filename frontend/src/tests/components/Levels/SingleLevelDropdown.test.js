@@ -102,7 +102,7 @@ describe("SingleLevelDropdown tests", () => {
 
   test("when localstorage has a value, it is passed to useState", async () => {
     const getItemSpy = jest.spyOn(Storage.prototype, "getItem");
-    getItemSpy.mockImplementation(() => "U");
+    getItemSpy.mockImplementation(() => "U"); //[TODO: change this to be not the default value]
 
     const setLevelStateSpy = jest.fn();
     useState.mockImplementation((x) => [x, setLevelStateSpy]);
