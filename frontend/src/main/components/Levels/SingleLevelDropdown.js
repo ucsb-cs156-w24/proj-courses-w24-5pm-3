@@ -9,15 +9,21 @@ const SingleLevelDropdown = ({
   label = "Course Level",
 }) => {
   const localSearchLevel = localStorage.getItem(controlId);
+  console.log(`SingleLevelDropdown ln12: localSearchLevelFetch, controlId = ${localSearchLevel}  ${controlId}`);
   const [levelState, setLevelState] = useState(
     // Stryker disable next-line all : not sure how to test/mock local storage
     localSearchLevel || "U",
   );
+  console.log(`SingleLevelDropdown ln17: levelState = ${levelState}`);
 
-  const handleLeveltoChange = (event) => {
-    localStorage.setItem(controlId, event.target.value);
-    setLevelState(event.target.value);
-    setLevel(event.target.value);
+  const handleLevelOnChange = (event) => {
+    const selectedLevel = event.target.value;
+    console.log(`SingleLevelDropdown ln21: selectedLevel = ${selectedLevel}`);
+    localStorage.setItem(controlId, selectedLevel);
+    setLevelState(selectedLevel);
+    console.log(`SingleLevelDropdown ln24: controlId, setLevelState, selectedLevel  = ${controlId}  ${setLevelState}  ${selectedLevel}`);
+    setLevel(selectedLevel);
+    console.log(`SingleLevelDropdown ln26: setLevel = ${setLevel}`);
     if (onChange != null) {
       onChange(event);
     }
@@ -29,7 +35,7 @@ const SingleLevelDropdown = ({
       <Form.Control
         as="select"
         value={levelState}
-        onChange={handleLeveltoChange}
+        onChange={handleLevelOnChange}
       >
         {levels.map(function (object, i) {
           const key = `${controlId}-option-${i}`;

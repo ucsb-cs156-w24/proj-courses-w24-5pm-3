@@ -22,8 +22,11 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
 
   // Stryker disable all : not sure how to test/mock local storage
   const localSubject = localStorage.getItem("BasicSearch.Subject");
+  console.log(`BasicCourseSearchForm ln25: localSubject = ${localSubject}`);
   const localQuarter = localStorage.getItem("BasicSearch.Quarter");
-  const localLevel = localStorage.getItem("BasicSearch.CourseLevel");
+  console.log(`BasicCourseSearchForm ln27: localQuarter = ${localQuarter}`);
+  const localLevel = localStorage.getItem("BasicSearch.Level");
+  console.log(`BasicCourseSearchForm ln29: localLevel = ${localLevel}`);
 
   const {
     data: subjects,
@@ -38,14 +41,18 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
 
   const defaultSubjectArea = "ANTH";
   const [quarter, setQuarter] = useState(localQuarter || quarters[0].yyyyq);
+  console.log(`BasicCourseSearchForm ln44: quarter, setQuarter = ${quarter} ${setQuarter}`);
   const [subject, setSubject] = useState(
     localSubject || subjects[0]?.subjectCode || defaultSubjectArea,
   );
-  const [level, setLevel] = useState(localLevel || "U");
+    console.log(`BasicCourseSearchForm ln48: subject, setSubject = ${subject} ${setSubject}`);
+  const [level, setLevel] = useState(localLevel);
+    console.log(`BasicCourseSearchForm ln50: level, setLevel = ${level} ${setLevel}`);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     fetchJSON(event, { quarter, subject, level });
+    console.log(`BasicCourseSearchForm ln55: quarter, subject, level = ${quarter} ${subject} ${level}`);
   };
 
   // Stryker disable all : Stryker is testing by changing the padding to 0. But this is simply a visual optimization as it makes it look better
