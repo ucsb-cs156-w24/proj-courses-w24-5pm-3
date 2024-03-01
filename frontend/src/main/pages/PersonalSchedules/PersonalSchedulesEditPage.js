@@ -51,11 +51,14 @@ export default function PersonalSchedulesEditPage() {
         <p>
           <h2>Sections in Personal Schedule</h2>
           {personalSection && (
-            <PersonalSectionsEditTable personalSections={personalSection} currentUser={currentUser} psId={id} />
+            <PersonalSectionsEditTable
+              personalSections={personalSection}
+              currentUser={currentUser}
+              psId={id}
+            />
           )}
         </p>
       </div>
     </BasicLayout>
   );
 }
-

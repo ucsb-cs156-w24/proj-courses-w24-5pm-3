@@ -746,7 +746,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn("{\"error\": \"Enroll code doesn't exist in that quarter.\"}");
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111"))).thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111")))
+        .thenReturn(Optional.of(primary1));
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("11111"), eq("20221")))
         .thenReturn("{\"error\": \"Enroll code doesn't exist in that quarter.\"}");
@@ -760,9 +761,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111")
+                    .with(csrf()))
             .andExpect(status().isOk())
-            .andReturn();        
+            .andReturn();
 
     // assert
     verify(coursesRepository, times(1)).findByIdAndUser(1L, u);
@@ -774,7 +777,6 @@ public class PSCourseControllerTests extends ControllerTestCase {
     verify(coursesRepository, times(1)).delete(primary1);
     Map<String, Object> json1 = responseToJson(response1);
     assertEquals("PSCourse with id 2 deleted", json1.get("message"));
-
   }
 
   @WithMockUser(roles = {"USER"})
@@ -810,7 +812,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn("{\"error\": \"401: Unauthorized\"}");
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111"))).thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111")))
+        .thenReturn(Optional.of(primary1));
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("11111"), eq("20221")))
         .thenReturn("{\"error\": \"401: Unauthorized\"}");
@@ -824,9 +827,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111")
+                    .with(csrf()))
             .andExpect(status().isOk())
-            .andReturn();   
+            .andReturn();
 
     // assert
     verify(coursesRepository, times(1)).findByIdAndUser(1L, u);
@@ -838,7 +843,6 @@ public class PSCourseControllerTests extends ControllerTestCase {
     verify(coursesRepository, times(1)).delete(primary1);
     Map<String, Object> json1 = responseToJson(response1);
     assertEquals("PSCourse with id 2 deleted", json1.get("message"));
-
   }
 
   @WithMockUser(roles = {"USER"})
@@ -875,7 +879,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896")))
         .thenReturn(Optional.of(primary));
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08300"))).thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08300")))
+        .thenReturn(Optional.of(primary1));
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("08300"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
@@ -889,7 +894,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08300").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08300")
+                    .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -939,7 +946,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896")))
         .thenReturn(Optional.of(primary));
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08896"))).thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08896")))
+        .thenReturn(Optional.of(primary1));
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
@@ -953,7 +961,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08896").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08896")
+                    .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -993,7 +1003,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .user(u)
             .id(2L)
             .build();
-    
+
     PSCourse primary1 = PSCourse.builder().enrollCd("63370").psId(2L).user(u).id(3L).build();
     PSCourse secondary1 = PSCourse.builder().enrollCd("63388").psId(2L).user(u).id(4L).build();
     PSCourse primary = PSCourse.builder().enrollCd("63370").psId(1L).user(u).id(1L).build();
@@ -1008,8 +1018,10 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("63388")))
         .thenReturn(Optional.of(secondary));
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("63370"))).thenReturn(Optional.of(primary1));
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("63388"))).thenReturn(Optional.of(secondary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("63370")))
+        .thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("63388")))
+        .thenReturn(Optional.of(secondary1));
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("63370"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC100);
@@ -1023,7 +1035,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=63370").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=63370")
+                    .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1101,7 +1115,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=63388").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=63388")
+                    .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1161,14 +1177,15 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08318"))).thenReturn(Optional.empty());
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08326"))).thenReturn(Optional.empty());
 
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08292"))).thenReturn(Optional.of(primary1));
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08300"))).thenReturn(Optional.of(secondary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08292")))
+        .thenReturn(Optional.of(primary1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08300")))
+        .thenReturn(Optional.of(secondary1));
     when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08318"))).thenReturn(Optional.empty());
     when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("08326"))).thenReturn(Optional.empty());
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.of(ps1));
     when(ucsbCurriculumService.getAllSections(eq("08292"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
-    
 
     // act
     MvcResult response =
@@ -1179,7 +1196,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08292").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=08292")
+                    .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1220,7 +1239,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=12345").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=12345")
+                    .with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -1243,7 +1264,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     PSCourse course = PSCourse.builder().enrollCd("00000").psId(1L).user(u).id(1L).build();
     PSCourse course1 = PSCourse.builder().enrollCd("11111").psId(2L).user(u).id(2L).build();
     when(coursesRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(course));
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111"))).thenReturn(Optional.of(course1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(2L), eq("11111")))
+        .thenReturn(Optional.of(course1));
     when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.empty());
     when(personalScheduleRepository.findByIdAndUser(eq(2L), eq(u))).thenReturn(Optional.empty());
 
@@ -1256,7 +1278,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=2&enrollCd=11111")
+                    .with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -1281,7 +1305,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
     User otherUser = User.builder().id(98L).build();
     PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(31L).build();
     when(coursesRepository.findById(eq(31L))).thenReturn(Optional.of(ps1));
-    when(coursesRepository.findByPsIdAndEnrollCd(eq(31L), eq("08250"))).thenReturn(Optional.of(ps1));
+    when(coursesRepository.findByPsIdAndEnrollCd(eq(31L), eq("08250")))
+        .thenReturn(Optional.of(ps1));
 
     // act
     MvcResult response =
@@ -1292,7 +1317,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     MvcResult response1 =
         mockMvc
-            .perform(delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=13&enrollCd=08250").with(csrf()))
+            .perform(
+                delete("/api/courses/user/deleteByPsIdAndEnrollCd?psId=13&enrollCd=08250")
+                    .with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 

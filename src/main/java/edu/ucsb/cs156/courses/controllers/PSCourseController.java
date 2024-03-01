@@ -240,13 +240,12 @@ public class PSCourseController extends ApiController {
     return genericMessage("PSCourse with id %s deleted".formatted(id));
   }
 
-
   @Operation(summary = "Delete a course by psId and enrollCd (user)")
   @PreAuthorize("hasRole('ROLE_USER')")
   @DeleteMapping("/user/deleteByPsIdAndEnrollCd")
   public Object deleteCourseByPsIdAndEnrollCd(
-    @Parameter(name = "psId") @RequestParam Long psId, 
-    @Parameter(name = "enrollCd") @RequestParam String enrollCd)
+      @Parameter(name = "psId") @RequestParam Long psId,
+      @Parameter(name = "enrollCd") @RequestParam String enrollCd)
       throws JsonProcessingException {
     User currentUser = getCurrentUser().getUser();
     PSCourse psCourse =
@@ -254,7 +253,7 @@ public class PSCourseController extends ApiController {
             .findByPsIdAndEnrollCd(psId, enrollCd)
             .orElseThrow(() -> new EntityNotFoundException(PSCourse.class, psId));
     long id = psCourse.getId();
-    
+
     // do i really need this??????
     PersonalSchedule checkId =
         personalScheduleRepository
@@ -298,8 +297,6 @@ public class PSCourseController extends ApiController {
 
     return genericMessage("PSCourse with id %s deleted".formatted(id));
   }
-
-
 
   @Operation(summary = "Update a single Course (admin)")
   @PreAuthorize("hasRole('ROLE_ADMIN')")

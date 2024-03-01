@@ -8,12 +8,16 @@ import {
   formatTime,
 } from "main/utils/sectionUtils.js";
 import {
-    cellToAxiosParamsDelete,
-    onDeleteSuccess,
-  } from "main/utils/CoursesEditUtils";
+  cellToAxiosParamsDelete,
+  onDeleteSuccess,
+} from "main/utils/CoursesEditUtils";
 import { hasRole } from "main/utils/currentUser";
 
-export default function PersonalSectionsEditTable({ personalSections, currentUser, psId }) {
+export default function PersonalSectionsEditTable({
+  personalSections,
+  currentUser,
+  psId,
+}) {
   // Stryker disable all : hard to test for query caching
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
@@ -78,7 +82,12 @@ export default function PersonalSectionsEditTable({ personalSections, currentUse
   const columnsIfUser = [
     ...columns,
     // Stryker disable next-line all
-    ButtonColumn("Delete", "danger", deleteCallback, "PersonalSectionsEditTable"),
+    ButtonColumn(
+      "Delete",
+      "danger",
+      deleteCallback,
+      "PersonalSectionsEditTable",
+    ),
   ];
 
   const testid = "PersonalSectionsEditTable";
