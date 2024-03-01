@@ -220,6 +220,5 @@ describe("AdminJobsPage tests", () => {
     expect(axiosMock.history.post[0].url).toBe(
       "/api/jobs/launch/updateCoursesRangeOfQuarters?start_quarterYYYYQ=20212&end_quarterYYYYQ=20213",
     );
-  }); 
-
+  });
 });

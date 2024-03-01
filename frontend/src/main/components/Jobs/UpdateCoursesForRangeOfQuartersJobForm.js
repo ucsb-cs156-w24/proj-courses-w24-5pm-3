@@ -19,10 +19,13 @@ const UpdateCoursesForRangeOfQuartersJobForm = ({ callback }) => {
   // Stryker disable all : not sure how to test/mock local storage
   const startQuarter = localStorage.getItem("BasicSearch.StartQuarter");
   const endQuarter = localStorage.getItem("BasicSearch.EndQuarter");
-  
 
-  const [start_quarter, setStartQuarter] = useState(startQuarter || quarters[0].yyyyq);
-  const [end_quarter, setEndQuarter] = useState(endQuarter || quarters[1].yyyyq);
+  const [start_quarter, setStartQuarter] = useState(
+    startQuarter || quarters[0].yyyyq,
+  );
+  const [end_quarter, setEndQuarter] = useState(
+    endQuarter || quarters[1].yyyyq,
+  );
   // Stryker restore all
 
   const handleSubmit = (event) => {
