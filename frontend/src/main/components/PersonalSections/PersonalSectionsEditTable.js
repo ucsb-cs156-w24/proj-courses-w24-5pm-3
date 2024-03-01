@@ -81,7 +81,7 @@ export default function PersonalSectionsEditTable({
 
   const columnsIfUser = [
     ...columns,
-    // Stryker disable next-line all
+    // Stryker disable all
     ButtonColumn(
       "Delete",
       "danger",
