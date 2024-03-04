@@ -61,8 +61,6 @@ export default function CoursesCreatePage() {
       return (
         <BasicLayout>
           <div className="pt-2">
-            <h1>Create New Course</h1>
-
             <CourseForm submitAction={onSubmit} />
             <p data-testid="PSCourseCreate-Error">Error: {errorMessage}</p>
           </div>

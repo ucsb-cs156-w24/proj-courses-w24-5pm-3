@@ -162,14 +162,47 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
   });
-  test("error testing", async () => {
+
+
+  test("displays error message and button for creating schedule when psId is not provided", async () => {
+    // Mocking the backend response to simulate an error
     axiosMock.onPost("/api/courses/post").reply(400, {
       message:
         "Required request parameter 'psId' for method parameter type Long is not present",
     });
 
+    // Mocking window.location.href
+    delete window.location;
+    window.location = { href: "" };
 
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    // Fill in the form fields and submit
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(enrollCdField, { target: { value: "08250" } });
+    fireEvent.click(submitButton);
+
+    // Ensure error message is displayed
+    await waitFor(() => {
+      expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
+        "Error: Schedule!! Where is it? We need schedule!!",
+      );
+    });
+
+
+
+  
   });
+
+    
 
 
 });
