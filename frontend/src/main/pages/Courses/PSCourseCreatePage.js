@@ -41,18 +41,48 @@ export default function CoursesCreatePage() {
     return <Navigate to="/courses/list" />;
   }
   if (mutation.isError) {
-    return (
-      <BasicLayout>
-        <div className="pt-2">
-          <h1>Create New Course</h1>
+    const errorMessage =
+    mutation.error.response.data?.message || "Unknown error";
+  
+    if (errorMessage.includes("psId")) {
+      return (
+        <BasicLayout>
+          <div className="pt-2">
+            <h1>Create New Course</h1>
 
-          <CourseForm submitAction={onSubmit} />
+            <CourseForm submitAction={onSubmit} />
+            <br />
+            <p data-testid="PSCourseCreate-Error">Error: Schedule!! Where is it? We need schedule!!</p>
+
+            </div>
+        </BasicLayout>
+      );
+    } else {
+      return (
+        <BasicLayout>
+          <div className="pt-2">
+            <h1>Create New Course</h1>
+
+            <CourseForm submitAction={onSubmit} />
+            <p data-testid="PSCourseCreate-Error">Error: {errorMessage}</p>
+          </div>
+        </BasicLayout>
+      );
+    }
+
+
+    {/* // return (
+    //   <BasicLayout>
+    //     <div className="pt-2">
+    //       <h1>Create New Course</h1> */}
+
+          {/* <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
             Error: {mutation.error.response.data?.message}
           </p>
         </div>
       </BasicLayout>
-    );
+    ); */}
   }
   return (
     <BasicLayout>

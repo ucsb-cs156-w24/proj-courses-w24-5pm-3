@@ -162,4 +162,14 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
   });
+  test("error testing", async () => {
+    axiosMock.onPost("/api/courses/post").reply(400, {
+      message:
+        "Required request parameter 'psId' for method parameter type Long is not present",
+    });
+
+
+  });
+
+
 });
