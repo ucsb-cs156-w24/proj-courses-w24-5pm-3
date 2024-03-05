@@ -12,9 +12,9 @@ const coursesFixtures = {
     },
   ],
   oneCourse: {
-      id: 27,
-      psId: 13,
-      enrollCd: "08078",
+    id: 27,
+    psId: 13,
+    enrollCd: "08078",
   },
 };
 
