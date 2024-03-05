@@ -6,7 +6,6 @@ import CourseDetailsTable from "main/components/CourseDetails/CourseDetailsTable
 import { yyyyqToQyy } from "main/utils/quarterUtilities";
 import CourseDescriptionComponent from "main/components/CourseDetails/CourseDescriptionComponent";
 
-
 export default function CourseDetailsIndexPage() {
   // Stryker disable next-line all : Can't test state because hook is internal
   let { qtr, enrollCode } = useParams();
@@ -35,8 +34,7 @@ export default function CourseDetailsIndexPage() {
             Course Details for {moreDetails.courseId} {yyyyqToQyy(qtr)}!
           </h5>
         )}
-                
-        
+
         {moreDetails && <CourseDescriptionComponent course={moreDetails} />}
         {moreDetails && <CourseDetailsTable details={[moreDetails]} />}
       </div>
