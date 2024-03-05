@@ -42,8 +42,8 @@ export default function CoursesCreatePage() {
   }
   if (mutation.isError) {
     const errorMessage =
-    mutation.error.response.data?.message || "Unknown error";
-  
+      mutation.error.response.data?.message || "Unknown error";
+
     if (errorMessage.includes("psId")) {
       return (
         <BasicLayout>
@@ -52,16 +52,18 @@ export default function CoursesCreatePage() {
 
             <CourseForm submitAction={onSubmit} />
             <br />
-            <p data-testid="PSCourseCreate-Error">Error: Schedule!! Where is it? We need schedule!!</p>
+            <p data-testid="PSCourseCreate-Error">
+              Error: Schedule!! Where is it? We need schedule!!
+            </p>
 
             <button
               style={{
                 backgroundColor: "#34859b",
                 color: "white",
-                padding: "10px 20px", 
-                borderRadius: "5px", 
-                border: "2px outset buttonface", 
-                outline: "none", 
+                padding: "10px 20px",
+                borderRadius: "5px",
+                border: "2px outset buttonface",
+                outline: "none",
                 fontSize: "16px",
               }}
               onClick={() =>
@@ -85,20 +87,23 @@ export default function CoursesCreatePage() {
         </BasicLayout>
       );
     }
- 
 
-    {/* // return (
+    {
+      /* // return (
     //   <BasicLayout>
     //     <div className="pt-2">
-    //       <h1>Create New Course</h1> */}
+    //       <h1>Create New Course</h1> */
+    }
 
-          {/* <CourseForm submitAction={onSubmit} />
+    {
+      /* <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
             Error: {mutation.error.response.data?.message}
           </p>
         </div>
       </BasicLayout>
-    ); */}
+    ); */
+    }
   }
   return (
     <BasicLayout>

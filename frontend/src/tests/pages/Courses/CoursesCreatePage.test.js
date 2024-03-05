@@ -163,7 +163,6 @@ describe("CoursesCreatePage tests", () => {
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
   });
   test("error and button when psId is not nonexistent", async () => {
-
     axiosMock.onPost("/api/courses/post").reply(400, {
       message:
         "Required request parameter 'psId' for method parameter type Long is not present",
@@ -199,10 +198,10 @@ describe("CoursesCreatePage tests", () => {
     expect(createScheduleButton).toHaveStyle({
       backgroundColor: "#34859b",
       color: "white",
-      padding: "10px 20px", 
-      borderRadius: "5px", 
-      border: "2px outset buttonface", 
-      outline: "none", 
+      padding: "10px 20px",
+      borderRadius: "5px",
+      border: "2px outset buttonface",
+      outline: "none",
       fontSize: "16px",
     });
 
@@ -240,5 +239,4 @@ describe("CoursesCreatePage tests", () => {
       );
     });
   });
-
 });
