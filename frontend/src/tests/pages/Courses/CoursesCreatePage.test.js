@@ -200,7 +200,7 @@ describe("CoursesCreatePage tests", () => {
       color: "white",
       padding: "10px 20px",
       borderRadius: "5px",
-      border: "2px outset buttonface",
+      border: "",
       outline: "none",
       fontSize: "16px",
     });
