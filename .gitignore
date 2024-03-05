@@ -51,3 +51,6 @@ build/
 
 ### Local Configuration ###
 .env
+
+### MAC Finder Files
+.DS_Store
