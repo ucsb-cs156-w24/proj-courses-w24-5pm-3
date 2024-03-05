@@ -53,7 +53,7 @@ export default function CoursesCreatePage() {
             <CourseForm submitAction={onSubmit} />
             <br />
             <p data-testid="PSCourseCreate-Error">
-              Error: Schedule!! Where is it? We need schedule!!
+              Error: Schedulelllll
             </p>
 
             <button
