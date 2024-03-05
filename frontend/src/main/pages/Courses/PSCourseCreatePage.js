@@ -88,14 +88,14 @@ export default function CoursesCreatePage() {
       );
     }
 
-    {
+    
       /* // return (
     //   <BasicLayout>
     //     <div className="pt-2">
     //       <h1>Create New Course</h1> */
-    }
+    
 
-    {
+    
       /* <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
             Error: {mutation.error.response.data?.message}
@@ -103,7 +103,7 @@ export default function CoursesCreatePage() {
         </div>
       </BasicLayout>
     ); */
-    }
+    
   }
   return (
     <BasicLayout>
