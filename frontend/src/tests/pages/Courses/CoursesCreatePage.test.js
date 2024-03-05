@@ -199,8 +199,11 @@ describe("CoursesCreatePage tests", () => {
     expect(createScheduleButton).toHaveStyle({
       backgroundColor: "#34859b",
       color: "white",
-      padding: "10px",
-      borderRadius: "2px",
+      padding: "10px 20px", 
+      borderRadius: "5px", 
+      border: "2px outset buttonface", 
+      outline: "none", 
+      fontSize: "16px",
     });
 
     fireEvent.click(createScheduleButton);

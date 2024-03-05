@@ -58,8 +58,11 @@ export default function CoursesCreatePage() {
               style={{
                 backgroundColor: "#34859b",
                 color: "white",
-                borderRadius: "2px",
-                padding: "10px",
+                padding: "10px 20px", 
+                borderRadius: "5px", 
+                border: "2px outset buttonface", 
+                outline: "none", 
+                fontSize: "16px",
               }}
               onClick={() =>
                 (window.location.href = "/personalschedules/create")
