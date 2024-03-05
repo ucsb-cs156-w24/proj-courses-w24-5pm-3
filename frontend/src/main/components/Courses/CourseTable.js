@@ -34,6 +34,18 @@ export default function CourseTable({ courses, currentUser }) {
       Header: "Personal Schedule ID",
       accessor: "psId",
     },
+    {
+      Header: "Personal Schedule Name",
+      accessor: "psName",
+    },
+    {
+      Header: "Course Name",
+      accessor: "courseName",
+    },
+    {
+      Header: "Quarter",
+      accessor: "quarter",
+    }
   ];
 
   const columnsIfUser = [

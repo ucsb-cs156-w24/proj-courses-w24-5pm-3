@@ -27,4 +27,9 @@ public class PSCourse {
 
   private String enrollCd;
   private long psId;
+  private String psName;
+  private String courseName;
+  private String quarter;
 }
+//&psName=Test&courseName=CS16&quarter=W24
+//.psName("Test").courseName("CS16").quarter("W24")

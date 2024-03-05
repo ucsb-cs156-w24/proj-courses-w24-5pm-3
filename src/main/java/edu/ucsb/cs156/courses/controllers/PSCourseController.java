@@ -125,6 +125,7 @@ public class PSCourseController extends ApiController {
 
     String enrollCdPrimary = null;
     boolean hasSecondary = false;
+    JsonNode courseInfo = mapper.readTree(body);
     Iterator<JsonNode> it = mapper.readTree(body).path("classSections").elements();
     while (it.hasNext()) {
       JsonNode classSection = it.next();
@@ -145,7 +146,24 @@ public class PSCourseController extends ApiController {
 
     if (coursesRepository.findByPsIdAndEnrollCd(psId, enrollCdPrimary).isPresent()) {
       throw new IllegalArgumentException("class exists in schedule");
+    } 
+
+    String quarter_QYY;
+    String quarter_YYYYQ = checkPsId.getQuarter();
+    if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '1'){
+      quarter_QYY = "W" + quarter_YYYYQ.substring(2, 4);
+    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '2'){
+      quarter_QYY = "S" + quarter_YYYYQ.substring(2, 4);
+    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '3'){
+      quarter_QYY = "M" + quarter_YYYYQ.substring(2, 4);
+    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '4'){
+      quarter_QYY = "F" + quarter_YYYYQ.substring(2, 4);
+    }else{
+      throw new IllegalArgumentException("Wrong quarter in YYYQ");
     }
+
+    String psName = checkPsId.getName();
+    String courseName = courseInfo.get("courseId").toString();
 
     ArrayList<PSCourse> savedCourses = new ArrayList<>();
 
@@ -155,6 +173,9 @@ public class PSCourseController extends ApiController {
       secondary.setUser(currentUser.getUser());
       secondary.setEnrollCd(enrollCdSecondary);
       secondary.setPsId(psId);
+      secondary.setPsName(psName);
+      secondary.setCourseName(courseName);
+      secondary.setQuarter(quarter_QYY);
       PSCourse savedSecondary = coursesRepository.save(secondary);
       savedCourses.add(savedSecondary);
     } else if (hasSecondary) {
@@ -167,6 +188,9 @@ public class PSCourseController extends ApiController {
     primary.setUser(currentUser.getUser());
     primary.setEnrollCd(enrollCdPrimary);
     primary.setPsId(psId);
+    primary.setPsName(psName);
+    primary.setCourseName(courseName);
+    primary.setQuarter(quarter_QYY);
     PSCourse savedPrimary = coursesRepository.save(primary);
     savedCourses.add(savedPrimary);
     return savedCourses;
@@ -252,6 +276,9 @@ public class PSCourseController extends ApiController {
 
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
+    courses.setPsName(incomingCourses.getPsName());
+    courses.setCourseName(incomingCourses.getCourseName());
+    courses.setQuarter(incomingCourses.getQuarter());
 
     coursesRepository.save(courses);
 
@@ -271,6 +298,9 @@ public class PSCourseController extends ApiController {
 
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
+    courses.setPsName(incomingCourses.getPsName());
+    courses.setCourseName(incomingCourses.getCourseName());
+    courses.setQuarter(incomingCourses.getQuarter());
 
     coursesRepository.save(courses);
 

@@ -352,7 +352,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("\"CMPSC   291A \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -393,7 +393,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("\"CMPSC   291A \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896")))
         .thenReturn(Optional.of(expectedPrimary));
@@ -507,7 +507,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("\"CMPSC   291A \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -548,11 +548,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("63388"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC100);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("63370").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("63370").psId(1L).psName("Test").courseName("\"CMPSC   100  \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("63388").psId(1L).user(u).id(0L).build();
+        PSCourse.builder().enrollCd("63388").psId(1L).psName("Test").courseName("\"CMPSC   100  \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("63370"))).thenReturn(Optional.empty());
@@ -596,11 +596,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08326"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08292").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08292").psId(1L).psName("Test").courseName("\"CMPSC   156  \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("08326").psId(1L).user(u).id(0L).build();
+        PSCourse.builder().enrollCd("08326").psId(1L).psName("Test").courseName("\"CMPSC   156  \"").quarter("W22").user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08292"))).thenReturn(Optional.empty());
