@@ -156,10 +156,8 @@ public class PSCourseController extends ApiController {
       quarter_QYY = "S" + quarter_YYYYQ.substring(2, 4);
     }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '3'){
       quarter_QYY = "M" + quarter_YYYYQ.substring(2, 4);
-    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '4'){
-      quarter_QYY = "F" + quarter_YYYYQ.substring(2, 4);
     }else{
-      throw new IllegalArgumentException("Wrong quarter in YYYQ");
+      quarter_QYY = "F" + quarter_YYYYQ.substring(2, 4);
     }
 
     String psName = checkPsId.getName();
