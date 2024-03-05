@@ -19,13 +19,6 @@ Empty.args = {
   courses: [],
 };
 
-export const onePSCourse = Template.bind({});
-
-onePSCourse.args = {
-  courses: coursesFixtures.oneCourse,
-  currentUser: currentUserFixtures.userOnly,
-};
-
 export const twoPSCourses = Template.bind({});
 twoPSCourses.args = {
   courses: coursesFixtures.twoCourses,
