@@ -2,7 +2,7 @@ import React from "react";
 
 import CourseTable from "main/components/Courses/CourseTable";
 import { coursesFixtures } from "fixtures/pscourseFixtures";
-import { currentUserFixtures } from 'fixtures/currentUserFixtures';
+import { currentUserFixtures } from "fixtures/currentUserFixtures";
 
 export default {
   title: "components/Courses/CourseTable",
@@ -10,9 +10,7 @@ export default {
 };
 
 const Template = (args) => {
-  return (
-    <CourseTable {...args} />
-  )
+  return <CourseTable {...args} />;
 };
 
 export const Empty = Template.bind({});
