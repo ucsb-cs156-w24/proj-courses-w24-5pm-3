@@ -67,7 +67,7 @@ export default function CoursesCreatePage() {
         </BasicLayout>
       );
     }
-
+ 
 
     {/* // return (
     //   <BasicLayout>
