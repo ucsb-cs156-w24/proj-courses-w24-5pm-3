@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/DeveloperPage.js</title>
+    <title>Code coverage report for utils/CoursesEditUtils.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">pages</a> DeveloperPage.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> CoursesEditUtils.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -83,37 +83,37 @@
 <a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
-import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ReactJson from "react-json-view";
-import { useSystemInfo } from "main/utils/systemInfo";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { toast } from "react-toastify";
 &nbsp;
-const DeveloperPage = () =&gt; {
-  const { data: systemInfo } = useSystemInfo();
-  return (
-    &lt;BasicLayout&gt;
-      &lt;h2&gt;Github Branch Information&lt;/h2&gt;
-      &lt;p&gt;The following SystemInfo is displayed in a JSON file.&lt;/p&gt;
-      &lt;ReactJson src={systemInfo} /&gt;
-    &lt;/BasicLayout&gt;
-  );
-};
+export function onDeleteSuccess(message) {
+  console.log(message);
+  toast(message);
+}
 &nbsp;
-export default DeveloperPage;
+export function cellToAxiosParamsDelete({ cell, psId }) {
+  return {
+    url: "/api/courses/user/deleteByPsIdAndEnrollCd",
+    method: "DELETE",
+    params: {
+      psId: psId,
+      enrollCd: cell.row.values["classSections[0].enrollCode"],
+    },
+  };
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
