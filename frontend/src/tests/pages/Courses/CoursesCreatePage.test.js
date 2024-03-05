@@ -195,7 +195,7 @@ describe("CoursesCreatePage tests", () => {
       expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
         "Error: Schedule!! Where is it? We need schedule!!",
       );
-    });
+    }); 
   
   });
 
