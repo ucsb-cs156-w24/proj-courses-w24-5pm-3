@@ -172,8 +172,8 @@ describe("CoursesCreatePage tests", () => {
     });
 
     // Mocking window.location.href
-    delete window.location;
-    window.location = { href: "" };
+    //delete window.location;
+    //window.location = { href: "" };
 
     render(
       <QueryClientProvider client={new QueryClient()}>
@@ -183,14 +183,12 @@ describe("CoursesCreatePage tests", () => {
       </QueryClientProvider>,
     );
 
-    // Fill in the form fields and submit
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(enrollCdField, { target: { value: "08250" } });
     fireEvent.click(submitButton);
 
-    // Ensure error message is displayed
     await waitFor(() => {
       expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
         "Error: Schedule!! Where is it? We need schedule!!",
