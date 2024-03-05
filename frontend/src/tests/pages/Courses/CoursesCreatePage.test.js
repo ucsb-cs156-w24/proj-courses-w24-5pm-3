@@ -196,13 +196,8 @@ describe("CoursesCreatePage tests", () => {
         "Error: Schedule!! Where is it? We need schedule!!",
       );
     });
-
-
-
   
   });
 
-    
-
-
+  
 });
