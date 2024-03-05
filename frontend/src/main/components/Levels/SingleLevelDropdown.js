@@ -14,10 +14,11 @@ const SingleLevelDropdown = ({
     localSearchLevel || "U",
   );
 
-  const handleLeveltoChange = (event) => {
-    localStorage.setItem(controlId, event.target.value);
-    setLevelState(event.target.value);
-    setLevel(event.target.value);
+  const handleLevelOnChange = (event) => {
+    const selectedLevel = event.target.value;
+    localStorage.setItem(controlId, selectedLevel);
+    setLevelState(selectedLevel);
+    setLevel(selectedLevel);
     if (onChange != null) {
       onChange(event);
     }
@@ -29,7 +30,7 @@ const SingleLevelDropdown = ({
       <Form.Control
         as="select"
         value={levelState}
-        onChange={handleLeveltoChange}
+        onChange={handleLevelOnChange}
       >
         {levels.map(function (object, i) {
           const key = `${controlId}-option-${i}`;
