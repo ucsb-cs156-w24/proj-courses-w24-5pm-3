@@ -187,7 +187,7 @@ describe("CoursesCreatePage tests", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
-        "Error: Schedule Required",
+        "Error: Schedule! Where is it?",
       );
     });
 
