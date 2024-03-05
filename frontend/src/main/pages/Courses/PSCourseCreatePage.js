@@ -54,13 +54,28 @@ export default function CoursesCreatePage() {
             <br />
             <p data-testid="PSCourseCreate-Error">Error: Schedule!! Where is it? We need schedule!!</p>
 
-            </div>
+            <button
+              style={{
+                backgroundColor: "#34859b",
+                color: "white",
+                borderRadius: "2px",
+                padding: "10px",
+              }}
+              onClick={() =>
+                (window.location.href = "/personalschedules/create")
+              }
+            >
+              Create Schedule
+            </button>
+          </div>
         </BasicLayout>
       );
     } else {
       return (
         <BasicLayout>
           <div className="pt-2">
+            <h1>Create New Course</h1>
+
             <CourseForm submitAction={onSubmit} />
             <p data-testid="PSCourseCreate-Error">Error: {errorMessage}</p>
           </div>

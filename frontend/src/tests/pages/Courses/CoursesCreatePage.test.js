@@ -162,18 +162,15 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
   });
+  test("error and button when psId is not nonexistent", async () => {
 
-
-  test("displays error message and button for creating schedule when psId is not provided", async () => {
-    // Mocking the backend response to simulate an error
     axiosMock.onPost("/api/courses/post").reply(400, {
       message:
         "Required request parameter 'psId' for method parameter type Long is not present",
     });
 
-    // Mocking window.location.href
-    //delete window.location;
-    //window.location = { href: "" };
+    delete window.location;
+    window.location = { href: "" };
 
     render(
       <QueryClientProvider client={new QueryClient()}>
@@ -186,16 +183,59 @@ describe("CoursesCreatePage tests", () => {
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
-    fireEvent.change(enrollCdField, { target: { value: "08250" } });
+    fireEvent.change(enrollCdField, { target: { value: "19999" } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
         "Error: Schedule!! Where is it? We need schedule!!",
       );
-    }); 
-  
+    });
+
+    expect(screen.getByText("Create Schedule")).toBeInTheDocument();
+
+    const createScheduleButton = screen.getByText("Create Schedule");
+
+    expect(createScheduleButton).toHaveStyle({
+      backgroundColor: "#34859b",
+      color: "white",
+      padding: "10px",
+      borderRadius: "2px",
+    });
+
+    fireEvent.click(createScheduleButton);
+
+    await waitFor(() => {
+      expect(window.location.href).toBe("/personalschedules/create");
+    });
   });
 
-  
+  test("error and button without specific error message", async () => {
+    axiosMock.onPost("/api/courses/post").reply(400);
+
+    delete window.location;
+    window.location = { href: "" };
+
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(enrollCdField, { target: { value: "19999" } });
+    fireEvent.click(submitButton);
+
+    // error exists
+    await waitFor(() => {
+      expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
+        "Error: Unknown error",
+      );
+    });
+  });
+
 });
