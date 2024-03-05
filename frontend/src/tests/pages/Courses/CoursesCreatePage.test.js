@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import { useBackendMutation } from "main/utils/useBackend";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -182,7 +183,7 @@ describe("CoursesCreatePage tests", () => {
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
-    fireEvent.change(enrollCdField, { target: { value: "19999" } });
+    fireEvent.change(enrollCdField, { target: { value: "20000" } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
