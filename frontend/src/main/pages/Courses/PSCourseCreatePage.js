@@ -60,7 +60,6 @@ export default function CoursesCreatePage() {
                 color: "white",
                 padding: "10px 20px",
                 borderRadius: "5px",
-                border: "",
                 outline: "none",
                 fontSize: "16px",
               }}
