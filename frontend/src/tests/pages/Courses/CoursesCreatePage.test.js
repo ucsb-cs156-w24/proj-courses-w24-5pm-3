@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import CoursesCreatePage from "main/pages/Courses/PSCourseCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import { useBackendMutation } from "main/utils/useBackend";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -161,5 +162,82 @@ describe("CoursesCreatePage tests", () => {
       await screen.findByTestId("CourseForm-enrollCd"),
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
+  });
+  test("error and button when psId is not nonexistent", async () => {
+    axiosMock.onPost("/api/courses/post").reply(400, {
+      message:
+        "Required request parameter 'psId' for method parameter type Long is not present",
+    });
+
+    delete window.location;
+    window.location = { href: "" };
+
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(enrollCdField, { target: { value: "20000" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
+        "Error: Schedule Required",
+      );
+    });
+
+    expect(screen.getByText("Create Schedule")).toBeInTheDocument();
+
+    const createScheduleButton = screen.getByText("Create Schedule");
+
+    expect(createScheduleButton).toHaveStyle({
+      backgroundColor: "#34859b",
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      border: "2px outset buttonface",
+      outline: "none",
+      fontSize: "16px",
+    });
+
+    fireEvent.click(createScheduleButton);
+
+    await waitFor(() => {
+      expect(window.location.href).toBe("/personalschedules/create");
+    });
+  });
+
+  test("error and button without specific error message", async () => {
+    axiosMock.onPost("/api/courses/post").reply(400);
+
+    delete window.location;
+    window.location = { href: "" };
+
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(enrollCdField, { target: { value: "19999" } });
+    fireEvent.click(submitButton);
+
+    // error exists
+    await waitFor(() => {
+      expect(screen.getByTestId("PSCourseCreate-Error")).toHaveTextContent(
+        "Error: Unknown error",
+      );
+    });
   });
 });
