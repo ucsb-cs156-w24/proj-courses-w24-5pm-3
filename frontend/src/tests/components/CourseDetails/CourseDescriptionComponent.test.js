@@ -15,5 +15,4 @@ describe("CourseDescriptionComponent tests", () => {
     expect(screen.getByText("Course Description")).toBeInTheDocument();
     expect(screen.getByText(course.description)).toBeInTheDocument();
   });
-
 });
