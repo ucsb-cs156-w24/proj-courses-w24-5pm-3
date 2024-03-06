@@ -1241,14 +1241,14 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(999).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(67L).build();
+    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(u).id(67L).build();
     // We deliberately set the user information to another user
     // This should get ignored and overwritten with current user when todo is saved
 
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(otherUser).id(67L).build();
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W21").user(otherUser).id(67L).build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(u).id(67L).build();
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W21").user(u).id(67L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedReturn = mapper.writeValueAsString(correctCourses);
@@ -1349,9 +1349,48 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // We deliberately put the wrong user on the updated course
     // We expect the controller to ignore this and keep the user the same
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(yetAnotherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(yetAnotherUser).id(77L).build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(otherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(otherUser).id(77L).build();
+
+    String requestBody = mapper.writeValueAsString(updatedCourses);
+    String expectedJson = mapper.writeValueAsString(correctCourses);
+
+    when(coursesRepository.findById(eq(77L))).thenReturn(Optional.of(ps1));
+
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/courses/admin?id=77")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    // assert
+    verify(coursesRepository, times(1)).findById(77L);
+    verify(coursesRepository, times(1)).save(correctCourses);
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(expectedJson, responseString);
+  }
+
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void api_schedules__admin_logged_in__put_schedule_change_fields() throws Exception {
+    // arrange
+
+    User otherUser = User.builder().id(255L).build();
+    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(otherUser).id(77L).build();
+    User yetAnotherUser = User.builder().id(512L).build();
+    // We deliberately put the wrong user on the updated course
+    // We expect the controller to ignore this and keep the user the same
+    PSCourse updatedCourses =
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(yetAnotherUser).id(77L).build();
+    PSCourse correctCourses =
+        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(otherUser).id(77L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedJson = mapper.writeValueAsString(correctCourses);
@@ -1385,7 +1424,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User otherUser = User.builder().id(345L).build();
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(otherUser).id(77L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
 

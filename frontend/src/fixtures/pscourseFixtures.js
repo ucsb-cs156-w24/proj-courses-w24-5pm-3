@@ -17,7 +17,8 @@ const coursesFixtures = {
       quarter: "W23",
     },
   ],
-  oneCourse: {
+  oneCourse: 
+  {
     id: 27,
     psId: 13,
     enrollCd: "08078",
