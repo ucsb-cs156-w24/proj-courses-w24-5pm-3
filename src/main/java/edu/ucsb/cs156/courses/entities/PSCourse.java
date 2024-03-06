@@ -31,5 +31,3 @@ public class PSCourse {
   private String courseName;
   private String quarter;
 }
-//&psName=Test&courseName=CS16&quarter=W24
-//.psName("Test").courseName("CS16").quarter("W24")
