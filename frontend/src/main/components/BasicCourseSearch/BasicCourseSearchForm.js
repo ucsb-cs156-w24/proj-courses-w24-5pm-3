@@ -23,7 +23,7 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
   // Stryker disable all : not sure how to test/mock local storage
   const localSubject = localStorage.getItem("BasicSearch.Subject");
   const localQuarter = localStorage.getItem("BasicSearch.Quarter");
-  const localLevel = localStorage.getItem("BasicSearch.CourseLevel");
+  const localLevel = localStorage.getItem("BasicSearch.Level");
 
   const {
     data: subjects,
@@ -42,7 +42,6 @@ const BasicCourseSearchForm = ({ fetchJSON }) => {
     localSubject || subjects[0]?.subjectCode || defaultSubjectArea,
   );
   const [level, setLevel] = useState(localLevel || "U");
-
   const handleSubmit = (event) => {
     event.preventDefault();
     fetchJSON(event, { quarter, subject, level });
