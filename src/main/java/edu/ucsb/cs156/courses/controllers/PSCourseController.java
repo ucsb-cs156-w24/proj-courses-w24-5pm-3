@@ -163,6 +163,8 @@ public class PSCourseController extends ApiController {
     String psName = checkPsId.getName();
     String courseName = courseInfo.get("courseId").toString();
 
+    courseName = courseName.substring(1, courseName.length()-1);
+
     ArrayList<PSCourse> savedCourses = new ArrayList<>();
 
     if (!enrollCdPrimary.equals(enrollCd)) {
