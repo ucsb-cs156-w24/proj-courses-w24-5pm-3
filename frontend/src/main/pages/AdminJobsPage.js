@@ -9,6 +9,7 @@ import JobComingSoon from "main/components/Jobs/JobComingSoon";
 import { useBackendMutation } from "main/utils/useBackend";
 import UpdateCoursesJobForm from "main/components/Jobs/UpdateCoursesJobForm";
 import UpdateCoursesByQuarterJobForm from "main/components/Jobs/UpdateCoursesByQuarterJobForm";
+import UpdateCoursesForRangeOfQuartersJobForm from "main/components/Jobs/UpdateCoursesForRangeOfQuartersJobForm";
 
 const AdminJobsPage = () => {
   const refreshJobsIntervalMilliseconds = 5000;
@@ -42,6 +43,11 @@ const AdminJobsPage = () => {
     method: "POST",
   });
 
+  const objectToAxiosParamsUpdateCoursesForRangeOfQuartersJob = (data) => ({
+    url: `/api/jobs/launch/updateCoursesRangeOfQuarters?start_quarterYYYYQ=${data.start_quarter}&end_quarterYYYYQ=${data.end_quarter}`,
+    method: "POST",
+  });
+
   // Stryker disable all
   const updateCoursesJobMutation = useBackendMutation(
     objectToAxiosParamsUpdateCoursesJob,
@@ -53,6 +59,11 @@ const AdminJobsPage = () => {
     {},
     ["/api/jobs/all"],
   );
+  const updateCoursesForRangeOfQuartersJobMutation = useBackendMutation(
+    objectToAxiosParamsUpdateCoursesForRangeOfQuartersJob,
+    {},
+    ["/api/jobs/all"],
+  );
   // Stryker restore all
 
   const submitUpdateCoursesJob = async (data) => {
@@ -61,6 +72,10 @@ const AdminJobsPage = () => {
 
   const submitUpdateCoursesByQuarterJob = async (data) => {
     updateCoursesByQuarterJobMutation.mutate(data);
+  };
+
+  const submitUpdateCoursesForRangeOfQuartersJob = async (data) => {
+    updateCoursesForRangeOfQuartersJobMutation.mutate(data);
   };
 
   // Stryker disable all
@@ -93,6 +108,14 @@ const AdminJobsPage = () => {
       form: (
         <UpdateCoursesByQuarterJobForm
           callback={submitUpdateCoursesByQuarterJob}
+        />
+      ),
+    },
+    {
+      name: "Update Courses Database by a range of quarters",
+      form: (
+        <UpdateCoursesForRangeOfQuartersJobForm
+          callback={submitUpdateCoursesForRangeOfQuartersJob}
         />
       ),
     },
