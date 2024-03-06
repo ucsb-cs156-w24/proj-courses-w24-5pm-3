@@ -45,7 +45,7 @@ export default function CourseTable({ courses, currentUser }) {
     {
       Header: "Quarter",
       accessor: "quarter",
-    }
+    },
   ];
 
   const columnsIfUser = [

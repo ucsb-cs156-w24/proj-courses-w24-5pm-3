@@ -17,15 +17,13 @@ const coursesFixtures = {
       quarter: "W23",
     },
   ],
-  oneCourse: 
-  {
+  oneCourse: {
     id: 27,
     psId: 13,
     enrollCd: "08078",
     psName: "sched 0",
     courseName: "CMPSC 16",
     quarter: "W23",
-
   },
 };
 
