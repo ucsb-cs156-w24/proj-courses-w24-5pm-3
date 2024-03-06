@@ -146,7 +146,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 <span class="fc bfc" id="L147" title="All 2 branches covered.">    if (coursesRepository.findByPsIdAndEnrollCd(psId, enrollCdPrimary).isPresent()) {</span>
 <span class="fc" id="L148">      throw new IllegalArgumentException(&quot;class exists in schedule&quot;);</span>
-    } 
+    }
 
     String quarter_QYY;
 <span class="fc" id="L152">    String quarter_YYYYQ = checkPsId.getQuarter();</span>
@@ -163,7 +163,7 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L163">    String psName = checkPsId.getName();</span>
 <span class="fc" id="L164">    String courseName = courseInfo.get(&quot;courseId&quot;).toString();</span>
 
-<span class="fc" id="L166">    courseName = courseName.substring(1, courseName.length()-1);</span>
+<span class="fc" id="L166">    courseName = courseName.substring(1, courseName.length() - 1);</span>
 
 <span class="fc" id="L168">    ArrayList&lt;PSCourse&gt; savedCourses = new ArrayList&lt;&gt;();</span>
 
