@@ -352,7 +352,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("CMPSC   291A ").quarter("W22").user(u).id(0L).build();
+    PSCourse expectedPrimary =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   291A ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -393,7 +402,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("\"CMPSC   291A \"").quarter("W22").user(u).id(0L).build();
+    PSCourse expectedPrimary =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("\"CMPSC   291A \"")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896")))
         .thenReturn(Optional.of(expectedPrimary));
@@ -507,7 +525,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("CMPSC   291A ").quarter("W22").user(u).id(0L).build();
+    PSCourse expectedPrimary =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   291A ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -548,11 +575,28 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("63388"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC100);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("63370").psId(1L).psName("Test").courseName("CMPSC   100  ").quarter("W22").user(u).id(0L).build();
+    PSCourse expectedPrimary =
+        PSCourse.builder()
+            .enrollCd("63370")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   100  ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("63388").psId(1L).psName("Test").courseName("CMPSC   100  ").quarter("W22").user(u).id(0L).build();
+        PSCourse.builder()
+            .enrollCd("63388")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   100  ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("63370"))).thenReturn(Optional.empty());
@@ -596,11 +640,28 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08326"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08292").psId(1L).psName("Test").courseName("CMPSC   156  ").quarter("W22").user(u).id(0L).build();
+    PSCourse expectedPrimary =
+        PSCourse.builder()
+            .enrollCd("08292")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   156  ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("08326").psId(1L).psName("Test").courseName("CMPSC   156  ").quarter("W22").user(u).id(0L).build();
+        PSCourse.builder()
+            .enrollCd("08326")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   156  ")
+            .quarter("W22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08292"))).thenReturn(Optional.empty());
@@ -626,8 +687,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = {"USER"})
   @Test
-  public void api_courses_post__user_logged_in__post_course_from_spring()
-      throws Exception {
+  public void api_courses_post__user_logged_in__post_course_from_spring() throws Exception {
     // arrange
     User u = currentUserService.getCurrentUser().getUser();
 
@@ -645,7 +705,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20222")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedSpring = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("CMPSC   291A ").quarter("S22").user(u).id(0L).build();
+    PSCourse expectedSpring =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   291A ")
+            .quarter("S22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedSpring))).thenReturn(expectedSpring);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -668,8 +737,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = {"USER"})
   @Test
-  public void api_courses_post__user_logged_in__post_course_from_summer()
-      throws Exception {
+  public void api_courses_post__user_logged_in__post_course_from_summer() throws Exception {
     // arrange
     User u = currentUserService.getCurrentUser().getUser();
 
@@ -687,7 +755,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20223")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedSummer = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("CMPSC   291A ").quarter("M22").user(u).id(0L).build();
+    PSCourse expectedSummer =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   291A ")
+            .quarter("M22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedSummer))).thenReturn(expectedSummer);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -708,11 +785,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
     assertEquals(expectedJson, responseString);
   }
 
-
   @WithMockUser(roles = {"USER"})
   @Test
-  public void api_courses_post__user_logged_in__post_course_from_fall()
-      throws Exception {
+  public void api_courses_post__user_logged_in__post_course_from_fall() throws Exception {
     // arrange
     User u = currentUserService.getCurrentUser().getUser();
 
@@ -730,7 +805,16 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20224")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedFall = PSCourse.builder().enrollCd("08896").psId(1L).psName("Test").courseName("CMPSC   291A ").quarter("F22").user(u).id(0L).build();
+    PSCourse expectedFall =
+        PSCourse.builder()
+            .enrollCd("08896")
+            .psId(1L)
+            .psName("Test")
+            .courseName("CMPSC   291A ")
+            .quarter("F22")
+            .user(u)
+            .id(0L)
+            .build();
     when(coursesRepository.save(eq(expectedFall))).thenReturn(expectedFall);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -1241,14 +1325,39 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(999).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(u).id(67L).build();
+    PSCourse ps1 =
+        PSCourse.builder()
+            .enrollCd("08250")
+            .psId(13L)
+            .psName("Test")
+            .courseName("CS16")
+            .quarter("W24")
+            .user(u)
+            .id(67L)
+            .build();
     // We deliberately set the user information to another user
     // This should get ignored and overwritten with current user when todo is saved
 
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W21").user(otherUser).id(67L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W21")
+            .user(otherUser)
+            .id(67L)
+            .build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W21").user(u).id(67L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W21")
+            .user(u)
+            .id(67L)
+            .build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedReturn = mapper.writeValueAsString(correctCourses);
@@ -1349,9 +1458,25 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // We deliberately put the wrong user on the updated course
     // We expect the controller to ignore this and keep the user the same
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(yetAnotherUser).id(77L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W23")
+            .user(yetAnotherUser)
+            .id(77L)
+            .build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(otherUser).id(77L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W23")
+            .user(otherUser)
+            .id(77L)
+            .build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedJson = mapper.writeValueAsString(correctCourses);
@@ -1383,14 +1508,39 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User otherUser = User.builder().id(255L).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(otherUser).id(77L).build();
+    PSCourse ps1 =
+        PSCourse.builder()
+            .enrollCd("08250")
+            .psId(13L)
+            .psName("Test")
+            .courseName("CS16")
+            .quarter("W24")
+            .user(otherUser)
+            .id(77L)
+            .build();
     User yetAnotherUser = User.builder().id(512L).build();
     // We deliberately put the wrong user on the updated course
     // We expect the controller to ignore this and keep the user the same
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(yetAnotherUser).id(77L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W23")
+            .user(yetAnotherUser)
+            .id(77L)
+            .build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).psName("newTest").courseName("CS24").quarter("W23").user(otherUser).id(77L).build();
+        PSCourse.builder()
+            .enrollCd("08276")
+            .psId(14L)
+            .psName("newTest")
+            .courseName("CS24")
+            .quarter("W23")
+            .user(otherUser)
+            .id(77L)
+            .build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedJson = mapper.writeValueAsString(correctCourses);
@@ -1424,7 +1574,15 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User otherUser = User.builder().id(345L).build();
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08250").psId(13L).psName("Test").courseName("CS16").quarter("W24").user(otherUser).id(77L).build();
+        PSCourse.builder()
+            .enrollCd("08250")
+            .psId(13L)
+            .psName("Test")
+            .courseName("CS16")
+            .quarter("W24")
+            .user(otherUser)
+            .id(77L)
+            .build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
 

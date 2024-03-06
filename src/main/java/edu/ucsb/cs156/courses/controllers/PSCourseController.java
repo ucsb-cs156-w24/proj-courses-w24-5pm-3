@@ -146,7 +146,7 @@ public class PSCourseController extends ApiController {
 
     if (coursesRepository.findByPsIdAndEnrollCd(psId, enrollCdPrimary).isPresent()) {
       throw new IllegalArgumentException("class exists in schedule");
-    } 
+    }
 
     String quarter_QYY;
     String quarter_YYYYQ = checkPsId.getQuarter();
@@ -163,7 +163,7 @@ public class PSCourseController extends ApiController {
     String psName = checkPsId.getName();
     String courseName = courseInfo.get("courseId").toString();
 
-    courseName = courseName.substring(1, courseName.length()-1);
+    courseName = courseName.substring(1, courseName.length() - 1);
 
     ArrayList<PSCourse> savedCourses = new ArrayList<>();
 
