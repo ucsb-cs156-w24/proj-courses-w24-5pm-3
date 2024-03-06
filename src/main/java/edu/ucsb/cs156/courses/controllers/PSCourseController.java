@@ -150,13 +150,13 @@ public class PSCourseController extends ApiController {
 
     String quarter_QYY;
     String quarter_YYYYQ = checkPsId.getQuarter();
-    if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '1'){
+    if (quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '1') {
       quarter_QYY = "W" + quarter_YYYYQ.substring(2, 4);
-    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '2'){
+    } else if (quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '2') {
       quarter_QYY = "S" + quarter_YYYYQ.substring(2, 4);
-    }else if(quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '3'){
+    } else if (quarter_YYYYQ.charAt(quarter_YYYYQ.length() - 1) == '3') {
       quarter_QYY = "M" + quarter_YYYYQ.substring(2, 4);
-    }else{
+    } else {
       quarter_QYY = "F" + quarter_YYYYQ.substring(2, 4);
     }
 
