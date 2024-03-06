@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import CourseDescriptionComponent from  "main/components/CourseDetails/CourseDescriptionComponent"; 
+import CourseDescriptionComponent from "main/components/CourseDetails/CourseDescriptionComponent";
 
 describe("CourseDescriptionComponent tests", () => {
   test("renders correctly with a valid course description", () => {
@@ -17,9 +17,9 @@ describe("CourseDescriptionComponent tests", () => {
   });
 
   test("empty description", () => {
-    const course = { description: "" }; 
+    const course = { description: "" };
     render(<CourseDescriptionComponent course={course} />);
     expect(screen.getByText("Course Description")).toBeInTheDocument();
-    expect(screen.getByText("", { selector: 'p' })).toBeInTheDocument();
+    expect(screen.getByText("", { selector: "p" })).toBeInTheDocument();
   });
 });
