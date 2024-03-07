@@ -78,10 +78,10 @@ export default function SectionsTableBase({
                         // Stryker disable next-line ObjectLiteral
                         style={{
                           background: cell.isGrouped
-                            ? "#34859b"
+                            ? "#7baacb"
                             : cell.isAggregated
-                            ? "#34859b"
-                            : "#9dbfbe",
+                            ? "#7baacb"
+                            : "#a3cdd9",
                           color: cell.isGrouped
                             ? "#effcf4"
                             : cell.isAggregated
