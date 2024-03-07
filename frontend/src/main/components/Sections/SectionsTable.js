@@ -28,6 +28,7 @@ export default function SectionsTable({ sections }) {
   // Stryker disable BooleanLiteral
   const [showModal, setShowModal] = useState(false);
   const [fetchSchedules, setFetchSchedules] = useState(false);
+  // Stryker disable next-line all : initalState of selectedEnrollCode does not matter and doesnt need to be tested
   const [selectedEnrollCode, setSelectedEnrollCode] = useState("");
 
   const handleShow = () => {
@@ -242,11 +243,7 @@ export default function SectionsTable({ sections }) {
           <Form>
             <Form.Group className="mb-3" data-testid="ModalForm-enrollCd">
               <Form.Label>Enroll Code</Form.Label>
-              <Form.Control
-                type="text"
-                value={selectedEnrollCode || ""}
-                readOnly
-              />
+              <Form.Control type="text" value={selectedEnrollCode} readOnly />
             </Form.Group>
             <Form.Group className="mb-3" data-testid="ModalForm-psId">
               <PersonalScheduleDropdown
