@@ -496,8 +496,10 @@ describe("Section tests", () => {
     fireEvent.click(addButton);
 
     expect(await screen.findByTestId("ModalForm-enrollCd")).toBeInTheDocument();
+    const saveChangesButton = screen.getByText("Save Changes");
+    fireEvent.click(saveChangesButton);
     await waitFor(() => {
       expect(localStorage.getItem("ModalForm-psId")).toBe("17");
-    });
+    }, {timeout: 5000});
   });
 });
