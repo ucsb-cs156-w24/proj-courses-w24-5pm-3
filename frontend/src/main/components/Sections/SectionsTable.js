@@ -2,8 +2,8 @@ import SectionsTableBase from "main/components/SectionsTableBase";
 import PersonalScheduleDropdown from "../PersonalSchedules/PersonalScheduleDropdown";
 
 // import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { yyyyqToQyy } from "main/utils/quarterUtilities.js";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
@@ -24,20 +24,20 @@ function getFirstVal(values) {
 }
 
 export default function SectionsTable({ sections }) {
-
+  // Stryker restore all
+  // Stryker disable BooleanLiteral
   const [showModal, setShowModal] = useState(false);
   const [fetchSchedules, setFetchSchedules] = useState(false);
   const [selectedEnrollCode, setSelectedEnrollCode] = useState("");
-  // const navigate = useNavigate();
 
   const handleShow = () => {
-    setShowModal(true)
-    setFetchSchedules(true)
+    setShowModal(true);
+    setFetchSchedules(true);
   };
   const handleClose = () => {
     setShowModal(false);
     setFetchSchedules(false);
-  }
+  };
 
   const {
     data: schedules,
@@ -47,9 +47,10 @@ export default function SectionsTable({ sections }) {
     // Stryker disable next-line all : don't test internal caching of React Query
     ["/api/personalschedules/all"],
     // Stryker disable next-line all : don't test internal caching of React Query
-    { method: "GET", url: "/api/personalschedules/all"},
+    { method: "GET", url: "/api/personalschedules/all" },
     [],
-    {enabled: fetchSchedules}
+    // Stryker disable next-line all : testing this would be hard as it has a default value of true in utils/useBackend.js
+    { enabled: fetchSchedules }, // only calls useBackend when the modal is opened so that we dont get constant backend calls failure when not signed in
   );
 
   // Stryker disable all : not sure how to test/mock local storage
@@ -92,20 +93,21 @@ export default function SectionsTable({ sections }) {
   );
 
   const addCallback = (section) => {
-    console.log(section);
-    setSelectedEnrollCode(section.section.enrollCode);
+    if (section.section) {
+      setSelectedEnrollCode(section.section.enrollCode);
+    } else {
+      setSelectedEnrollCode(section.cells[9].value);
+    }
     handleShow();
   };
 
-
   const saveCallback = () => {
     const psId = {
-      psId: localStorage["CourseForm-psId"],
+      psId: localStorage["ModalForm-psId"],
     };
-    const dataFinal = {psId, enrollCd: selectedEnrollCode} 
+    const dataFinal = { psId, enrollCd: selectedEnrollCode };
     mutation.mutate(dataFinal);
   };
-
 
   // Stryker restore all
   // Stryker disable BooleanLiteral
@@ -217,9 +219,7 @@ export default function SectionsTable({ sections }) {
 
   const testid = "SectionsTable";
 
-  const buttonColumns = [
-    ...columns,
-  ];
+  const buttonColumns = [...columns];
 
   const columnsToDisplay = buttonColumns;
 
@@ -240,20 +240,20 @@ export default function SectionsTable({ sections }) {
         <Modal.Body>
           {/* Modal content here, such as a form to select a schedule and add a section */}
           <Form>
-          <Form.Group className="mb-3">
+            <Form.Group className="mb-3" data-testid="ModalForm-enrollCd">
               <Form.Label>Enroll Code</Form.Label>
-              <Form.Control 
-                type="text" 
-                value={selectedEnrollCode || ''} // Display the selected enroll code
-                readOnly // Make the field read-only
+              <Form.Control
+                type="text"
+                value={selectedEnrollCode || ""}
+                readOnly
               />
             </Form.Group>
-            <Form.Group className="mb-3" data-testid="CourseForm-psId">
+            <Form.Group className="mb-3" data-testid="ModalForm-psId">
               <PersonalScheduleDropdown
                 schedules={schedules}
                 schedule={schedule}
                 setSchedule={setSchedule}
-                controlId={"CourseForm-psId"}
+                controlId={"ModalForm-psId"}
               />
             </Form.Group>
           </Form>
@@ -262,11 +262,14 @@ export default function SectionsTable({ sections }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => {
-            // Implement the logic to add the section to a schedule here
-            saveCallback();
-            handleClose();
-          }}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              // Implement the logic to add the section to a schedule here
+              saveCallback();
+              handleClose();
+            }}
+          >
             Save Changes
           </Button>
         </Modal.Footer>

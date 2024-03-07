@@ -1,8 +1,17 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { fiveSections, gigaSections } from "fixtures/sectionFixtures";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fiveSections,
+  gigaSections,
+  oneLectureSectionWithNoDiscussion,
+} from "fixtures/sectionFixtures";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import SectionsTable from "main/components/Sections/SectionsTable";
+
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
 
 const mockedNavigate = jest.fn();
 
@@ -11,8 +20,31 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+const mockToast = jest.fn();
+jest.mock("react-toastify", () => {
+  const originalModule = jest.requireActual("react-toastify");
+  return {
+    __esModule: true,
+    ...originalModule,
+    toast: (x) => mockToast(x),
+  };
+});
+
 describe("Section tests", () => {
   const queryClient = new QueryClient();
+  const axiosMock = new AxiosMockAdapter(axios);
+
+  beforeEach(() => {
+    axiosMock.reset();
+    localStorage.clear();
+    axiosMock.resetHistory();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock
+      .onGet("/api/systemInfo")
+      .reply(200, systemInfoFixtures.showingNeither);
+  });
 
   test("renders without crashing for empty table", () => {
     render(
@@ -119,6 +151,7 @@ describe("Section tests", () => {
       "Time",
       "Instructor",
       "Enroll Code",
+      "Add Section",
     ];
     const expectedFields = [
       "quarter",
@@ -173,6 +206,16 @@ describe("Section tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-section.enrollCode`),
     ).toHaveTextContent("12583");
+
+    const expandRow = screen.getByTestId(
+      `${testId}-cell-row-1-col-courseInfo.courseId-expand-symbols`,
+    );
+    fireEvent.click(expandRow);
+    fireEvent.click(screen.getAllByText("Add")[1]);
+
+    expect(
+      screen.getByTestId("ModalForm-enrollCd").querySelector("input"),
+    ).toHaveValue("12609");
   });
 
   test("Correctly groups separate lectures of the same class", async () => {
@@ -293,5 +336,168 @@ describe("Section tests", () => {
         .getByTestId(`${testId}-cell-row-4-col-info`)
         .querySelector('a[href$="/coursedetails/20221/12625"]'),
     ).toBeInTheDocument();
+  });
+
+  test("Modal displays on add button click", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SectionsTable sections={fiveSections} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const testId = "SectionsTable";
+
+    const expandRow = screen.getByTestId(
+      `${testId}-cell-row-1-col-courseInfo.courseId-expand-symbols`,
+    );
+    fireEvent.click(expandRow);
+
+    const addButton = screen.getAllByText("Add")[1]; // Get the first add button
+    fireEvent.click(addButton);
+
+    const modalTitle = screen.getByText("Add Section to Schedule");
+    expect(modalTitle).toBeInTheDocument();
+
+    const closeButton = screen.getByText("Close");
+    fireEvent.click(closeButton);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Add Section to Schedule"),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  test("when you fill in the form and hit submit, it makes a request to the backend (with sections)", async () => {
+    const courses = [
+      {
+        id: "17",
+        psId: 13,
+        enrollCd: "08250",
+      },
+    ];
+
+    axiosMock.onPost("/api/courses/post").reply(202, courses);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SectionsTable sections={fiveSections} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const testId = "SectionsTable";
+
+    const expandRow = screen.getByTestId(
+      `${testId}-cell-row-1-col-courseInfo.courseId-expand-symbols`,
+    );
+    fireEvent.click(expandRow);
+
+    const addButton = screen.getAllByText("Add")[1]; // Get the first add button
+    fireEvent.click(addButton);
+
+    expect(await screen.findByTestId("ModalForm-enrollCd")).toBeInTheDocument();
+
+    const psIdField = document.querySelector("#ModalForm-psId");
+    const submitButton = screen.getByText("Save Changes");
+
+    fireEvent.change(psIdField, { target: { value: "13" } });
+    localStorage.setItem("ModalForm-psId", "13");
+
+    expect(submitButton).toBeInTheDocument();
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+    expect(localStorage.getItem("ModalForm-psId")).toBe("13");
+    expect(axiosMock.history.post[0].params).toEqual({
+      psId: "13",
+      enrollCd: "12609",
+    });
+
+    expect(mockToast).toBeCalledWith(
+      "New course Created - id: 17 enrollCd: 08250",
+    );
+  });
+
+  test("when you fill in the form and hit submit, it makes a request to the backend (no sections)", async () => {
+    const courses = [
+      {
+        id: "17",
+        psId: 13,
+        enrollCd: "08250",
+      },
+    ];
+
+    axiosMock.onPost("/api/courses/post").reply(202, courses);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SectionsTable sections={oneLectureSectionWithNoDiscussion} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const addButton = screen.getAllByText("Add")[0]; // Get the first add button
+    fireEvent.click(addButton);
+
+    expect(await screen.findByTestId("ModalForm-enrollCd")).toBeInTheDocument();
+
+    const psIdField = document.querySelector("#ModalForm-psId");
+    const submitButton = screen.getByText("Save Changes");
+
+    fireEvent.change(psIdField, { target: { value: "13" } });
+    localStorage.setItem("ModalForm-psId", "13");
+
+    expect(submitButton).toBeInTheDocument();
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+    expect(localStorage.getItem("ModalForm-psId")).toBe("13");
+    expect(axiosMock.history.post[0].params).toEqual({
+      psId: "13",
+      enrollCd: "31781",
+    });
+
+    expect(mockToast).toBeCalledWith(
+      "New course Created - id: 17 enrollCd: 08250",
+    );
+  });
+
+  test("sets schedule and updates localStorage when schedules are available", async () => {
+    axiosMock.onGet("/api/personalschedules/all").reply(200, [
+      {
+        id: 17,
+        name: "SampName",
+        description: "desc",
+        quarter: "W22",
+      },
+    ]);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <SectionsTable sections={fiveSections} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const testId = "SectionsTable";
+
+    const expandRow = screen.getByTestId(
+      `${testId}-cell-row-1-col-courseInfo.courseId-expand-symbols`,
+    );
+    fireEvent.click(expandRow);
+
+    const addButton = screen.getAllByText("Add")[1]; // Get the first add button
+    fireEvent.click(addButton);
+
+    expect(await screen.findByTestId("ModalForm-enrollCd")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(localStorage.getItem("ModalForm-psId")).toBe("17");
+    });
   });
 });
