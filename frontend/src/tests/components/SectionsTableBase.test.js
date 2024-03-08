@@ -146,7 +146,7 @@ describe("SectionsTableBase tests", () => {
       screen.getByTestId("testid-cell-row-0-col-courseInfo.courseId"),
     ).toHaveAttribute(
       "style",
-      "background: rgb(123, 170, 203); color: rgb(239, 252, 244); font-weight: bold;",
+      "background: rgb(52, 133, 155); color: rgb(239, 252, 244); font-weight: bold;",
     );
   });
 });

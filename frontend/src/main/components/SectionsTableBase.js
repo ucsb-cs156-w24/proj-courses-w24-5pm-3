@@ -18,7 +18,7 @@ export default function SectionsTableBase({
         Cell: ({ row }) => {
           if (row.original || (!row.original && row.subRows.length === 1)) {
             return (
-              <Button
+              <Button style={{backgroundColor: "#003660", borderColor: "#003660"}}
                 onClick={() => addCallback(row.original ? row.original : row)}
               >
                 Add
@@ -78,10 +78,10 @@ export default function SectionsTableBase({
                         // Stryker disable next-line ObjectLiteral
                         style={{
                           background: cell.isGrouped
-                            ? "#7baacb"
+                            ? "#34859b"
                             : cell.isAggregated
-                            ? "#7baacb"
-                            : "#a3cdd9",
+                            ? "#34859b"
+                            : "#9dbfbe",
                           color: cell.isGrouped
                             ? "#effcf4"
                             : cell.isAggregated
