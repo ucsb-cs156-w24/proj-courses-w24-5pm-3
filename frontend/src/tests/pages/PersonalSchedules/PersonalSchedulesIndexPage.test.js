@@ -20,6 +20,12 @@ jest.mock("react-toastify", () => {
   };
 });
 
+const mockedNavigate = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedNavigate,
+}));
+
 describe("PersonalSchedulesIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
@@ -199,5 +205,40 @@ describe("PersonalSchedulesIndexPage tests", () => {
         "PersonalSchedule with id 1 was deleted",
       );
     });
+  });
+
+  test("both buttons navigate to the correct pages", async () => {
+    setupUserOnly();
+    const queryClient = new QueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <PersonalSchedulesIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(
+      await screen.findByTestId(`personalschedulespage-addschedule-button`),
+    ).toBeInTheDocument();
+    const addScheduleButton = screen.getByTestId(
+      `personalschedulespage-addschedule-button`,
+    );
+    fireEvent.click(addScheduleButton);
+    await waitFor(() =>
+      expect(mockedNavigate).toBeCalledWith("/personalschedules/create"),
+    );
+
+    expect(
+      await screen.findByTestId(`personalschedulespage-addcourse-button`),
+    ).toBeInTheDocument();
+    const addCourseButton = screen.getByTestId(
+      `personalschedulespage-addcourse-button`,
+    );
+    fireEvent.click(addCourseButton);
+    await waitFor(() =>
+      expect(mockedNavigate).toBeCalledWith("/courses/create"),
+    );
   });
 });
