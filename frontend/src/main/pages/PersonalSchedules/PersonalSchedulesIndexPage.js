@@ -5,6 +5,9 @@ import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import PersonalSchedulesTable from "main/components/PersonalSchedules/PersonalSchedulesTable";
 import { useCurrentUser } from "main/utils/currentUser";
 
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 export default function PersonalSchedulesIndexPage() {
   const currentUser = useCurrentUser();
 
@@ -19,6 +22,14 @@ export default function PersonalSchedulesIndexPage() {
     [],
   );
 
+  const navigate = useNavigate();
+  const addScheduleCallback = () => {
+    navigate(`/personalschedules/create`);
+  };
+  const addCourseCallback = () => {
+    navigate(`/courses/create`);
+  };
+
   return (
     <BasicLayout>
       <div className="pt-2">
@@ -27,6 +38,20 @@ export default function PersonalSchedulesIndexPage() {
           personalSchedules={personalSchedules}
           currentUser={currentUser}
         />
+
+        <Button
+          onClick={addScheduleCallback}
+          data-testid="personalschedulespage-addschedule-button"
+        >
+          Add New Schedule
+        </Button>
+        <span> </span>
+        <Button
+          onClick={addCourseCallback}
+          data-testid="personalschedulespage-addcourse-button"
+        >
+          Add New Course
+        </Button>
       </div>
     </BasicLayout>
   );
