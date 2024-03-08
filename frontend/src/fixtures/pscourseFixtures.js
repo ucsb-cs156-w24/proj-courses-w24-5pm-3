@@ -12,7 +12,7 @@ const coursesFixtures = {
       id: 26,
       psId: 13,
       enrollCd: "08276",
-      psName: "sched 1",
+      psName: "sched 0",
       courseName: "CMPSC 8",
       quarter: "W23",
     },

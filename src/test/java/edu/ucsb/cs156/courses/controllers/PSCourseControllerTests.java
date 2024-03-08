@@ -358,7 +358,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   291A ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -408,7 +408,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("\"CMPSC   291A \"")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -531,7 +531,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   291A ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -581,7 +581,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   100  ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -593,7 +593,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   100  ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -646,7 +646,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   156  ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -658,7 +658,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   156  ")
-            .quarter("W22")
+            .quarter("20221")
             .user(u)
             .id(0L)
             .build();
@@ -711,7 +711,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   291A ")
-            .quarter("S22")
+            .quarter("20222")
             .user(u)
             .id(0L)
             .build();
@@ -761,7 +761,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   291A ")
-            .quarter("M22")
+            .quarter("20223")
             .user(u)
             .id(0L)
             .build();
@@ -811,7 +811,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(1L)
             .psName("Test")
             .courseName("CMPSC   291A ")
-            .quarter("F22")
+            .quarter("20224")
             .user(u)
             .id(0L)
             .build();
@@ -1601,7 +1601,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(13L)
             .psName("Test")
             .courseName("CS16")
-            .quarter("W24")
+            .quarter("20241")
             .user(u)
             .id(67L)
             .build();
@@ -1614,7 +1614,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W21")
+            .quarter("20211")
             .user(otherUser)
             .id(67L)
             .build();
@@ -1624,7 +1624,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W21")
+            .quarter("20211")
             .user(u)
             .id(67L)
             .build();
@@ -1733,7 +1733,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W23")
+            .quarter("20231")
             .user(yetAnotherUser)
             .id(77L)
             .build();
@@ -1743,7 +1743,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W23")
+            .quarter("20231")
             .user(otherUser)
             .id(77L)
             .build();
@@ -1784,7 +1784,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(13L)
             .psName("Test")
             .courseName("CS16")
-            .quarter("W24")
+            .quarter("20241")
             .user(otherUser)
             .id(77L)
             .build();
@@ -1797,7 +1797,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W23")
+            .quarter("20231")
             .user(yetAnotherUser)
             .id(77L)
             .build();
@@ -1807,7 +1807,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(14L)
             .psName("newTest")
             .courseName("CS24")
-            .quarter("W23")
+            .quarter("20231")
             .user(otherUser)
             .id(77L)
             .build();
@@ -1849,7 +1849,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .psId(13L)
             .psName("Test")
             .courseName("CS16")
-            .quarter("W24")
+            .quarter("20241")
             .user(otherUser)
             .id(77L)
             .build();
