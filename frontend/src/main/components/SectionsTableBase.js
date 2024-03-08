@@ -18,12 +18,14 @@ export default function SectionsTableBase({
         Cell: ({ row }) => {
           if (row.original || (!row.original && row.subRows.length === 1)) {
             return (
+              //Stryker disable all : no need to test color of a button
               <Button
                 style={{ backgroundColor: "#003660", borderColor: "#003660" }}
                 onClick={() => addCallback(row.original ? row.original : row)}
               >
                 Add
               </Button>
+              //Stryker restore all
             );
           }
           return null;
