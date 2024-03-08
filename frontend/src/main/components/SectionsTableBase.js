@@ -1,13 +1,39 @@
 import React, { Fragment } from "react";
 import { useTable, useGroupBy, useExpanded } from "react-table";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 // Stryker disable StringLiteral, ArrayDeclaration
 export default function SectionsTableBase({
   columns,
   data,
   testid = "testid",
+  addCallback,
 }) {
+  const extendedColumns = React.useMemo(
+    () => [
+      ...columns,
+      {
+        id: "addAction",
+        Header: "Add Section",
+        Cell: ({ row }) => {
+          if (row.original || (!row.original && row.subRows.length === 1)) {
+            return (
+              //Stryker disable all : no need to test color of a button
+              <Button
+                style={{ backgroundColor: "#003660", borderColor: "#003660" }}
+                onClick={() => addCallback(row.original ? row.original : row)}
+              >
+                Add
+              </Button>
+              //Stryker restore all
+            );
+          }
+          return null;
+        },
+      },
+    ],
+    [columns, addCallback],
+  );
   // Stryker disable next-line ObjectLiteral
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -16,7 +42,7 @@ export default function SectionsTableBase({
           groupBy: ["courseInfo.courseId"],
           hiddenColumns: ["isSection"],
         },
-        columns,
+        columns: extendedColumns,
         data,
       },
       useGroupBy,
@@ -82,15 +108,14 @@ export default function SectionsTableBase({
                                   ? "➖ "
                                   : "➕ "
                                 : null}
-                            </span>{" "}
+                            </span>
                             {cell.render("Cell")}
                           </>
                         ) : cell.isAggregated ? (
                           cell.render("Aggregated")
                         ) : (
-                          cell.render("Cell")
+                          <>{cell.render("Cell")}</>
                         )}
-                        <></>
                       </td>
                     );
                   })}
