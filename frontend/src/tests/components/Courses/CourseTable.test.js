@@ -73,8 +73,22 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = [
+      "id",
+      "Enrollment Code",
+      "Personal Schedule ID",
+      "Personal Schedule Name",
+      "Course Name",
+      "Quarter",
+    ];
+    const expectedFields = [
+      "id",
+      "enrollCd",
+      "psId",
+      "psName",
+      "courseName",
+      "quarter",
+    ];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -115,8 +129,22 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = [
+      "id",
+      "Enrollment Code",
+      "Personal Schedule ID",
+      "Personal Schedule Name",
+      "Course Name",
+      "Quarter",
+    ];
+    const expectedFields = [
+      "id",
+      "enrollCd",
+      "psId",
+      "psName",
+      "courseName",
+      "quarter",
+    ];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -132,6 +160,11 @@ describe("UserTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
       "25",
     );
+
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-quarter`),
+    ).toHaveTextContent("W23");
+
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "26",
     );
